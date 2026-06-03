@@ -1,0 +1,28 @@
+# =============================================
+# 智能投研系统 - 主配置文件
+# =============================================
+spring:
+  application:
+    name: smart-investment
+  profiles:
+    active: dev
+
+# 服务端口
+server:
+  port: 8080
+
+# =============================================
+# Knife4j API 文档配置
+# =============================================
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn

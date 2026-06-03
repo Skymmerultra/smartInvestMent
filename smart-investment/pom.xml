@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Spring Boot 3.x Parent -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.5</version>
+        <relativePath/>
+    </parent>
+
+    <!-- 父项目坐标 -->
+    <groupId>com.smart.investment</groupId>
+    <artifactId>smart-investment</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>Smart Investment</name>
+    <description>智能投研系统 - 父项目</description>
+
+    <!-- 子模块 -->
+    <modules>
+        <!-- 公共模块 -->
+        <module>smart-common/common-core</module>
+        <module>smart-common/common-security</module>
+        <module>smart-common/common-web</module>
+
+        <!-- 业务模块 -->
+        <module>smart-modules/module-auth</module>
+        <module>smart-modules/module-report</module>
+        <module>smart-modules/module-market</module>
+        <module>smart-modules/module-chain</module>
+        <module>smart-modules/module-trend</module>
+        <module>smart-modules/module-risk</module>
+        <module>smart-modules/module-news</module>
+
+        <!-- AI 模块 -->
+        <module>smart-ai</module>
+
+        <!-- 启动模块 -->
+        <module>smart-server</module>
+    </modules>
+
+    <properties>
+        <!-- JDK 版本 -->
+        <java.version>17</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- 统一依赖版本管理 -->
+        <!-- Spring AI -->
+        <spring-ai.version>1.0.0-M4</spring-ai.version>
+
+        <!-- MyBatis-Plus -->
+        <mybatis-plus.version>3.5.9</mybatis-plus.version>
+
+        <!-- MySQL -->
+        <mysql-connector.version>8.0.33</mysql-connector.version>
+
+        <!-- Elasticsearch -->
+        <elasticsearch.version>8.14.3</elasticsearch.version>
+
+        <!-- JWT (JJWT) -->
+        <jjwt.version>0.12.6</jjwt.version>
+
+        <!-- Knife4j (Swagger) -->
+        <knife4j.version>4.5.0</knife4j.version>
+
+        <!-- Lombok -->
+        <lombok.version>1.18.34</lombok.version>
+
+        <!-- Hutool 工具库 -->
+        <hutool.version>5.8.29</hutool.version>
+
+        <!-- FastJson2 -->
+        <fastjson2.version>2.0.53</fastjson2.version>
+
+        <!-- Xxl-Job -->
+        <xxl-job.version>2.4.1</xxl-job.version>
+
+        <!-- Apache POI -->
+        <poi.version>5.2.5</poi.version>
+    </properties>
+
+    <!-- 统一依赖管理（仅声明版本，子模块按需引入） -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- Spring AI BOM -->
+            <dependency>
+                <groupId>org.springframework.ai</groupId>
+                <artifactId>spring-ai-bom</artifactId>
+                <version>${spring-ai.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- MyBatis-Plus -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <!-- MySQL Connector -->
+            <dependency>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
+                <version>${mysql-connector.version}</version>
+            </dependency>
+
+            <!-- Elasticsearch Client -->
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+
+            <!-- Elasticsearch Java Client (新版本) -->
+            <dependency>
+                <groupId>co.elastic.clients</groupId>
+                <artifactId>elasticsearch-java</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+
+            <!-- JJWT (JWT) -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+
+            <!-- Knife4j API 文档 -->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
+            </dependency>
+
+            <!-- Lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+
+            <!-- Hutool -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+
+            <!-- FastJson2 -->
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>${fastjson2.version}</version>
+            </dependency>
+
+            <!-- Xxl-Job -->
+            <dependency>
+                <groupId>com.xuxueli</groupId>
+                <artifactId>xxl-job-core</artifactId>
+                <version>${xxl-job.version}</version>
+            </dependency>
+
+            <!-- Apache POI -->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+
+            <!-- ========== 本项目内部模块版本 ========== -->
+            <dependency>
+                <groupId>com.smart.investment</groupId>
+                <artifactId>common-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart.investment</groupId>
+                <artifactId>common-security</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart.investment</groupId>
+                <artifactId>common-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart.investment</groupId>
+                <artifactId>smart-ai</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart.investment</groupId>
+                <artifactId>module-auth</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart.investment</groupId>
+                <artifactId>module-report</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart.investment</groupId>
+                <artifactId>module-market</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart.investment</groupId>
+                <artifactId>module-chain</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart.investment</groupId>
+                <artifactId>module-trend</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart.investment</groupId>
+                <artifactId>module-risk</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart.investment</groupId>
+                <artifactId>module-news</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- Spring Milestone/Release 仓库（Spring AI 等非正式版需要） -->
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/snapshot</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+    </repositories>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
