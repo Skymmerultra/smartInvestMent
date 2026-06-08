@@ -1,5 +1,6 @@
 # IDE
 .trae/
+.idea/
 
 # 环境变量配置文件
 .env

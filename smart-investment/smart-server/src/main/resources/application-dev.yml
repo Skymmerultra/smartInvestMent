@@ -2,30 +2,60 @@
 # 智能投研系统 - 开发环境配置
 # =============================================
 spring:
+  # DeepSeek AI 配置 (T-06)
+  ai:
+    deepseek:
+      api-key: ${DEEPSEEK_API_KEY:sk-your-deepseek-api-key}
+      base-url: https://api.deepseek.com
+      chat:
+        options:
+          model: deepseek-chat
+          temperature: 0.7
+          max-tokens: 4096
+
   datasource:
-    url: jdbc:mysql://localhost:3306/smart_investment?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://192.168.56.102:3306/smart_investment?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
-    password: root
+    password: SmartInvest@2026
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-  # Redis
+  # Redis (T-07)
   data:
     redis:
-      host: localhost
+      host: 192.168.56.102
       port: 6379
       password:
       database: 0
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+          max-wait: -1ms
 
-  # Elasticsearch
+  # Elasticsearch (T-08)
   elasticsearch:
-    uris: http://localhost:9200
+    uris: http://192.168.56.102:9200
 
-  # RabbitMQ
+  # RabbitMQ (T-09)
   rabbitmq:
-    host: localhost
+    host: 192.168.56.102
     port: 5672
     username: guest
     password: guest
+    # 生产者确认
+    publisher-confirm-type: correlated
+    publisher-returns: true
+    # 消费者手动确认
+    listener:
+      simple:
+        acknowledge-mode: manual
+        retry:
+          enabled: true
+          max-attempts: 3
+          initial-interval: 1000ms
+          multiplier: 2
+          max-interval: 10000ms
 
 # MyBatis-Plus
 mybatis-plus:

@@ -2,6 +2,17 @@
 # 智能投研系统 - 生产环境配置
 # =============================================
 spring:
+  # DeepSeek AI 配置 (T-06)
+  ai:
+    deepseek:
+      api-key: ${DEEPSEEK_API_KEY}
+      base-url: https://api.deepseek.com
+      chat:
+        options:
+          model: deepseek-chat
+          temperature: 0.7
+          max-tokens: 4096
+
   datasource:
     url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/smart_investment?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
     username: ${MYSQL_USER}
