@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smart.investment.module.risk.mapper.AlertEventMapper">
+
+    <select id="selectByUserId" resultType="com.smart.investment.module.risk.entity.AlertEvent">
+        SELECT * FROM alert_event WHERE user_id = #{userId} ORDER BY created_at DESC
+    </select>
+
+    <select id="selectUnreadByUserId" resultType="com.smart.investment.module.risk.entity.AlertEvent">
+        SELECT * FROM alert_event WHERE user_id = #{userId} AND is_read = 0 ORDER BY created_at DESC
+    </select>
+
+    <select id="selectByUserIdAndRiskType" resultType="com.smart.investment.module.risk.entity.AlertEvent">
+        SELECT * FROM alert_event WHERE user_id = #{userId} AND risk_type = #{riskType} ORDER BY created_at DESC
+    </select>
+
+    <update id="updateReadStatus">
+        UPDATE alert_event SET is_read = #{isRead} WHERE id = #{id}
+    </update>
+
+    <update id="updateAllReadByUserId">
+        UPDATE alert_event SET is_read = 1 WHERE user_id = #{userId}
+    </update>
+
+</mapper>
