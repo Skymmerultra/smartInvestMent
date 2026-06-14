@@ -4,6 +4,7 @@ import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.json.jackson.JacksonJsonpMapper;
 import co.elastic.clients.transport.ElasticsearchTransport;
 import co.elastic.clients.transport.rest_client.RestClientTransport;
+import com.smart.investment.common.core.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
@@ -61,7 +62,8 @@ public class ElasticsearchConfig {
         }
 
         RestClient restClient = builder.build();
-        ElasticsearchTransport transport = new RestClientTransport(restClient, new JacksonJsonpMapper());
+        ElasticsearchTransport transport = new RestClientTransport(restClient,
+                new JacksonJsonpMapper(JsonUtils.getMapper()));
         ElasticsearchClient client = new ElasticsearchClient(transport);
 
         log.info("Elasticsearch 客户端初始化完成, uris: {}", uris);

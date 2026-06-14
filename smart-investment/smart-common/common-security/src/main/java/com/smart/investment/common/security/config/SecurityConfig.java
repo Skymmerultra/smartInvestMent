@@ -23,7 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  */
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+// @EnableMethodSecurity  // 测试阶段暂时关闭方法级权限校验
 @RequiredArgsConstructor
 public class SecurityConfig {
 
@@ -34,16 +34,17 @@ public class SecurityConfig {
      * 公开端点白名单（无需认证即可访问）
      */
     private static final String[] PUBLIC_ENDPOINTS = {
-            "/api/auth/login",
-            "/api/auth/register",
-            "/ws/**",
-            "/doc.html",
-            "/swagger-ui/**",
-            "/swagger-ui.html",
-            "/v3/api-docs/**",
-            "/webjars/**",
-            "/favicon.ico",
-            "/static/**"
+            "/**",
+//            "/api/auth/login",
+//            "/api/auth/register",
+//            "/ws/**",
+//            "/doc.html",
+//            "/swagger-ui/**",
+//            "/swagger-ui.html",
+//            "/v3/api-docs/**",
+//            "/webjars/**",
+//            "/favicon.ico",
+//            "/static/**"
     };
 
     @Bean
