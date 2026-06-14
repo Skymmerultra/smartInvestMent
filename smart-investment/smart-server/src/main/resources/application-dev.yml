@@ -5,7 +5,7 @@ spring:
   # DeepSeek AI 配置 (T-06)
   ai:
     deepseek:
-      api-key: ${DEEPSEEK_API_KEY:sk-6d6c019de98642f58fbab7c552b5cdd3}
+      api-key: ${DEEPSEEK_API_KEY:YOUR_KEY}
       base-url: https://api.deepseek.com
       chat:
         options:
