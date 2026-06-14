@@ -28,6 +28,17 @@
             <groupId>com.smart.investment</groupId>
             <artifactId>common-security</artifactId>
         </dependency>
+        <!-- AI 模块依赖（T-06 Prompt 模板和 AiService） -->
+        <dependency>
+            <groupId>com.smart.investment</groupId>
+            <artifactId>smart-ai</artifactId>
+        </dependency>
+        <!-- PDF 文本提取 -->
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>3.0.3</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>

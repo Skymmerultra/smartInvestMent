@@ -1,5 +1,8 @@
 package com.smart.investment.common.core.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurer;
 import org.springframework.cache.annotation.EnableCaching;
@@ -9,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
 
@@ -40,14 +44,24 @@ public class CacheConfig implements CachingConfigurer {
 
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory connectionFactory) {
+        // 使用注册了 JavaTimeModule 的 ObjectMapper 构建序列化器
+        // 解决 LocalDateTime 等 Java 8 时间类型序列化问题
+        ObjectMapper mapper = new ObjectMapper()
+                .registerModule(new JavaTimeModule())
+                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        GenericJackson2JsonRedisSerializer valueSerializer = new GenericJackson2JsonRedisSerializer(mapper);
+
         // 默认缓存配置
         RedisCacheConfiguration defaultConfig = RedisCacheConfiguration.defaultCacheConfig()
                 .entryTtl(TTL_DEFAULT)
                 .serializeKeysWith(
                         RedisSerializationContext.SerializationPair.fromSerializer(RedisSerializer.string()))
                 .serializeValuesWith(
-                        RedisSerializationContext.SerializationPair.fromSerializer(RedisSerializer.json()))
-                .disableCachingNullValues();
+                        RedisSerializationContext.SerializationPair.fromSerializer(valueSerializer))
+                .disableCachingNullValues()
+                // 关键修改：自定义前缀，用单冒号分隔
+                .computePrefixWith(cacheName -> cacheName + ":");
+
 
         // 各缓存区域自定义 TTL
         Map<String, RedisCacheConfiguration> cacheConfigs = new HashMap<>();
